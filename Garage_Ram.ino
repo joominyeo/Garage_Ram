@@ -110,9 +110,7 @@ void loop() {
 
 void updateDist(int mode) {
   if (mode == 0) dist = 20798 * pow(analogRead(SIR),-1.109);
-  else {
-    //EQUATION FOR OAM - NEEDS TO BE CALIBRATED
-  }
+  else ;//EQUATION FOR OAM - NEEDS TO BE CALIBRATED
 }
 
 void updateDisp(){
@@ -132,10 +130,9 @@ void updateDisp(){
   digitalWrite(digitPins[digitScan], HIGH); 
  
   digitalWrite(latchPin, LOW);  
-  /*
+  /* NO NEED FOR DECIMAL POINT b/c dist IN CENTIMETRES
   if(digitScan==2)
     shiftOut(dataPin, clockPin, MSBFIRST, ~(digit[digitBuffer[digitScan]] | B10000000)); //print the decimal point on the 3rd digit
-    // NO NEED FOR DECIMAL POINT b/c dist IN CENTIMETRES
   else
     shiftOut(dataPin, clockPin, MSBFIRST, ~digit[digitBuffer[digitScan]]);
    */
