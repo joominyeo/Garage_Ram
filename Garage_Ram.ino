@@ -1,6 +1,6 @@
 /*
  * Written by: Joo Min (Cai) Yeo
- * Last Edit: 201507231134 PST
+ * Last Edit: 201507232254 PST
  * Location: Fullerton, California, United States
  *
  * Project Description: This project was created to prevent my parent's cars from ramming
@@ -80,7 +80,7 @@ void setup() {
 
 void loop() {
   if(dist > 150 && (SON > 400 || PHR < 500)) { //SOUND INPUT FROM GARAGE & LUX FROM HEADLIGHTS
-    //flash all three LED's
+    //slowly flash all three LED's
     updateDist(0);
   }
   else{
@@ -110,14 +110,15 @@ void loop() {
 
 void updateDist(int mode) {
   if (mode == 0) dist = 20798 * pow(analogRead(SIR),-1.109);
-  else ;//EQUATION FOR OAM - NEEDS TO BE CALIBRATED
+  else if(analogRead(OAM) > 10) dist = 5;
 }
 
 void updateDisp(){
-  digitBuffer[3] = int(dist * 100)/1000;
-  digitBuffer[2] = (int(dist * 100)%1000)/100;
-  digitBuffer[1] = (int(dist * 100)%100)/10;
-  digitBuffer[0] = (int(dist * 100)%100)%10;
+  int distemp = dist * 100;
+  digitBuffer[3] = int(distemp)/1000;
+  digitBuffer[2] = (int(distemp)%1000)/100;
+  digitBuffer[1] = (int(distemp)%100)/10;
+  digitBuffer[0] = (int(distemp)%100)%10;
   
   for(byte j=0; j<4; j++)  
     digitalWrite(digitPins[j], LOW);
