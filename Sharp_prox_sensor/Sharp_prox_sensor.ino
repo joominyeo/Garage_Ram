@@ -1,5 +1,5 @@
 
-int proxSensor = 0;
+int proxSensor = 2;
 
 void setup() {
   Serial.begin(9600);
@@ -18,4 +18,5 @@ void loop() {
   int raw = analogRead(proxSensor);
   int dist = 20798 * pow(raw,-1.109);
   Serial.println(dist);
+  delay(100);
 }

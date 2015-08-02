@@ -1,6 +1,6 @@
 /*
  * Written by: Joo Min (Cai) Yeo
- * Last Edit: 201507232254 PST
+ * Last Edit: 201508021352 PST
  * Location: Fullerton, California, United States
  *
  * Project Description: This project was created to prevent my parent's cars from ramming
@@ -32,7 +32,11 @@ int SIRpin = 2;
 int SIR = 0;
 int OAMpin = 3;
 int OAM = 0;
-int dist = 650; //in centimetres
+int dist = 155; //in centimetres
+
+int gled = 2;
+int yled = 3;
+int rled = 4;
 
 const int digitPins[4] = {
   5,6,7,8};                 //4 common anode pins of the display
@@ -61,6 +65,10 @@ void setup() {
   delay(100);
   Serial.println("Initiating Garage_Ram");
   
+  pinMode(gled, OUTPUT);
+  pinMode(yled, OUTPUT);
+  pinMode(rled, OUTPUT);
+  
   for(int i=0;i<4;i++) {
     pinMode(digitPins[i],OUTPUT);
   }
@@ -79,38 +87,43 @@ void setup() {
 }
 
 void loop() {
+  int dist = 20798 * pow(analogRead(SIRpin),-1.109);
   if(dist > 150 && (SON > 400 || PHR < 500)) { //SOUND INPUT FROM GARAGE & LUX FROM HEADLIGHTS
     //slowly flash all three LED's
     updateDist(0);
   }
   else{
-    if(dist < 150 && dist > 70) {
-      /*GREEN LED's
-      */
+    Serial.println(dist);
+    if(dist < 150 && dist > 90) {
+      digitalWrite(gled, HIGH);
+      digitalWrite(yled, LOW);
+      digitalWrite(rled, LOW);
       updateDist(0);
-      updateDisp;
+      //updateDisp;
       delay(2);
     }
-    else if(dist < 90 && dist > 30) {
-      /*YELLOW LED's
-      */
+    else if(dist < 70 && dist > 30) {
+      digitalWrite(yled, HIGH);
+      digitalWrite(gled, LOW);
+      digitalWrite(rled, LOW);
       updateDist(0);
-      updateDisp;
+      //updateDisp;
       delay(2);
     }
     else if(dist < 30) {
-      /*RED LED's
-      */
+      digitalWrite(rled, HIGH);
+      digitalWrite(gled, LOW);
+      digitalWrite(yled, LOW);
       updateDist(1);
-      updateDisp;
+      //updateDisp;
       delay(2);
     }
   }
 }
 
 void updateDist(int mode) {
-  if (mode == 0) dist = 20798 * pow(analogRead(SIR),-1.109);
-  else if(analogRead(OAM) > 10) dist = 5;
+  if (mode == 0) dist = 20798 * pow(analogRead(SIRpin),-1.109);
+  //else if(analogRead(OAM) > 10) dist = 5;
 }
 
 void updateDisp(){
