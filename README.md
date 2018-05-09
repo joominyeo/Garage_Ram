@@ -4,8 +4,8 @@
  * Location: Fullerton, California, United States
  *
  * Project Description: This project was created to prevent my parent's cars from ramming
- *                      into garage walls when parking - inspired by watching my mother
- *                      and father scream after punching a hole in the wall with their car.
+                       into garage walls when parking - inspired by watching my mother
+                       and father scream after punching a hole in the wall with their car.
  *
  * Project Cost: $29.94 USD
  *
